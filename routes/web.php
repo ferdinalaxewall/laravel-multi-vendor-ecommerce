@@ -31,7 +31,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::prefix('admin')->group(function () {
+        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
+    });
 });
 
 Route::middleware(['auth', 'role:vendor'])->group(function () {
