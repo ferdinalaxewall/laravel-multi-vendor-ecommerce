@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +18,7 @@ class UsersTableSeeder extends Seeder
         User::insert([
             // Admin
             [
+                'id' => Uuid::uuid4()->toString(),
                 'name' => 'Admin',
                 'username' => 'admin',
                 'email' => 'admin@gmail.com',
@@ -29,6 +31,7 @@ class UsersTableSeeder extends Seeder
             
             // Vendor
             [
+                'id' => Uuid::uuid4()->toString(),
                 'name' => 'Ferdinal Vendor',
                 'username' => 'vendor',
                 'email' => 'vendor@gmail.com',
@@ -41,6 +44,7 @@ class UsersTableSeeder extends Seeder
             
             // User or Customer
             [
+                'id' => Uuid::uuid4()->toString(),
                 'name' => 'User',
                 'username' => 'user',
                 'email' => 'user@gmail.com',
