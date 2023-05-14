@@ -1,11 +1,9 @@
-
-            
 <header id="page-topbar">
     <div class="navbar-header">
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index.html" class="logo logo-dark">
+                <a href="{{ route('admin.dashboard') }}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="logo-sm" height="22">
                     </span>
@@ -14,7 +12,7 @@
                     </span>
                 </a>
 
-                <a href="index.html" class="logo logo-light">
+                <a href="{{ route('admin.dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{{ asset('admin/assets/images/logo-sm.png') }}" alt="logo-sm-light" height="22">
                     </span>
@@ -148,14 +146,14 @@
             <div class="dropdown d-inline-block user-dropdown">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ asset('admin/assets/images/users/avatar-1.jpg') }}"
+                    <img class="rounded-circle header-profile-user" src="{{ auth()->user()->photo ? asset('storage/user/'.auth()->user()->photo) : asset('global/img/default-avatar.png') }}"
                         alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1">Julia</span>
+                    <span class="d-none d-xl-inline-block ms-1">{{ auth()->user()->name }}</span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="ri-user-line align-middle me-1"></i> Profile</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="{{ route('admin.logout') }}"><i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
                 </div>

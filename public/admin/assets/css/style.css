@@ -1,0 +1,6 @@
+label.required::after{
+    content: "*";
+    color: rgb(223, 18, 18);
+    display: inline-block;
+    margin-left: 5px;
+}

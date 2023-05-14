@@ -32,7 +32,15 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
+        // Profile Route
+        Route::get('profile', [AdminController::class, 'profile'])->name('admin.profile'); 
+        Route::post('profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update'); 
+        Route::post('change-password', [AdminController::class, 'changePassword'])->name('admin.change-password'); 
+
+        // Dashboard Route
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        
+        // Auth Route
         Route::get('logout', [AdminController::class, 'logout'])->name('admin.logout');
     });
 });

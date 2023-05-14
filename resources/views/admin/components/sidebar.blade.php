@@ -5,11 +5,11 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{ asset('admin/assets/images/users/avatar-1.jpg') }}" alt="" class="avatar-md rounded-circle">
+                <img src="{{ auth()->user()->photo ? asset('storage/user/'.auth()->user()->photo) : asset('global/img/default-avatar.png') }}" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
-                <h4 class="font-size-16 mb-1">Julia Hudda</h4>
-                <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
+                <h4 class="font-size-16 mb-1">{{ auth()->user()->name }}</h4>
+                <span class="text-muted">{{ auth()->user()->username ?? "-" }}</span>
             </div>
         </div>
 
@@ -20,16 +20,16 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="index.html" class="waves-effect">
+                    <a href="{{ route('admin.dashboard') }}" class="waves-effect">
                         <i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="calendar.html" class=" waves-effect">
-                        <i class="ri-calendar-2-line"></i>
-                        <span>Calendar</span>
+                    <a href="#" class=" waves-effect">
+                        <i class="ri-price-tag-3-line"></i>
+                        <span>Brand</span>
                     </a>
                 </li>
     
