@@ -23,8 +23,8 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'current_password' => 'required|string|max:255',
-            'new_password' => 'required|string|max:255',
-            'confirm_password' => 'required|string|max:255',
+            'new_password' => 'required|string|min:5|max:255',
+            'confirm_password' => 'required|string|min:5|max:255',
         ];
     }
 
@@ -33,7 +33,7 @@ class ChangePasswordRequest extends FormRequest
         return [
             'current_password' => 'Current Password',
             'new_password' => 'New Password',
-            'confirm_password' => 'Confirm Password',
+            'confirm_password' => 'Confirm New Password',
         ];
     }
 }

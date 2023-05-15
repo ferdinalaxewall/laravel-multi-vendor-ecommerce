@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Toast;
 use Illuminate\Http\Request;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
@@ -43,7 +44,7 @@ class AdminController extends Controller
         $data = $request->validated();
         $userResponse = $this->userService->updateUser(auth()->user()->id, $data);
 
-        return redirect(route('admin.profile'));
+        return redirect(route('admin.profile'))->with($userResponse->success ? Toast::success($userResponse->message) : Toast::error($userResponse->message));
     }
 
     public function changePassword(ChangePasswordRequest $request)
@@ -51,6 +52,6 @@ class AdminController extends Controller
         $data = $request->validated();
         $userResponse = $this->userService->updateUserPassword(auth()->user()->id, $data);
 
-        return redirect(route('admin.profile'));
+        return redirect(route('admin.profile'))->with($userResponse->success ? Toast::success($userResponse->message) : Toast::error($userResponse->message));
     }
 }

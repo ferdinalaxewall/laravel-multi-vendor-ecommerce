@@ -77,7 +77,7 @@ class UserServiceImplement implements UserService
                     }
                     return Response::objectResponse('Your New Password Not Match! Please Check Your New Password!');
                 }
-                return Response::objectResponse('Wrong Current Password!');
+                return Response::objectResponse("Current Password Doesn't Match!");
             }
 
             return $getUserResponse;

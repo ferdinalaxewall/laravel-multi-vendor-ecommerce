@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('vendor.layouts.master')
 
 @section('title', 'Profile')
 @section('content')
@@ -28,10 +28,11 @@
                 <div class="d-flex flex-column align-items-center text-center gap-3">
                     <img src="{{ $user->photo ? asset('storage/user/'.auth()->user()->photo) : asset('global/img/default-avatar.png') }}" alt="" id="profile-photo" class="avatar-lg rounded-circle img-thumbnail">
                     <h3 class="font-size-20 mb-1 fw-bolder">{{ $user->name }}</h3>
-                    <div class="d-flex flex-column fw-bold mb-1 font-size-16">
-                        <span class="text-muted">{{ $user->username ?? "-" }}</span>
+                    <div class="d-flex flex-column mb-1 font-size-16">
+                        <span class="text-muted fw-bold">{{ $user->username ?? "-" }}</span>
                         <span class="text-muted">{{ $user->address ?? "-" }}</span>
                     </div>
+                    <span class="text-muted">Since {{ \Carbon\Carbon::parse($user->created_at)->format('Y') }}</span>
                     <div class="d-flex align-items-center gap-2">
                         <a href="#" class="btn btn-info">Follow</a>
                         <a href="#" class="btn btn-outline-info">Message</a>
@@ -45,10 +46,19 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title font-size-20 fw-bolder mb-4 d-inline-flex align-items-center gap-2"><i class="ri-account-circle-fill"></i> Profile Account</h3>
-                    <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('vendor.profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="full-name" class="form-label required">Full Name</label>
+                            <label for="username" class="form-label required">Username</label>
+                            <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ $user->username }}" disabled>
+                            @error('username')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="full-name" class="form-label required">Shop Name</label>
                             <input type="text" name="name" id="full-name" class="form-control @error('name') is-invalid @enderror" value="{{ $user->name }}" required>
                             @error('name')
                             <div class="invalid-feedback">
@@ -57,16 +67,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ $user->username }}">
-                            @error('username')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>    
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label required">Email</label>
+                            <label for="email" class="form-label required">Vendor Email</label>
                             <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}" required>
                             @error('email')
                             <div class="invalid-feedback">
@@ -75,8 +76,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ $user->phone }}">
+                            <label for="phone" class="form-label required">Vendor Phone Number</label>
+                            <input type="tel" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ $user->phone }}" required>
                             @error('phone')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -84,8 +85,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <textarea name="address" id="address" class="form-control @error('address') is-invalid @enderror" rows="3">{{ $user->address }}</textarea>
+                            <label for="address" class="form-label required">Vendor Address</label>
+                            <textarea name="address" id="address" class="form-control @error('address') is-invalid @enderror" rows="3" required>{{ $user->address }}</textarea>
                             @error('address')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -93,8 +94,17 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="photo" class="form-label">Profile Picture</label>
-                            <input type="file" name="photo" id="photo" class="form-control" accept="image/*">
+                            <label for="vendor-info" class="form-label required">Vendor Info</label>
+                            <textarea name="vendor_short_info" id="vendor-info" class="form-control @error('vendor_short_info') is-invalid @enderror" rows="3" required>{{ $user->vendor_short_info }}</textarea>
+                            @error('vendor_short_info')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>    
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="photo" class="form-label required">Profile Picture</label>
+                            <input type="file" name="photo" id="photo" class="form-control" accept="image/*" required>
                             @error('photo')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -112,7 +122,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title font-size-20 fw-bolder mb-4 d-inline-flex align-items-center gap-2"><i class="ri-key-2-fill"></i> Change Password</h3>
-                    <form action="{{ route('admin.change-password') }}" method="POST">
+                    <form action="{{ route('vendor.change-password') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="current-password" class="form-label">Current Password</label>
