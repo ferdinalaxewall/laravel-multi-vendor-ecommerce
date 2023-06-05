@@ -1,77 +1,71 @@
-@extends('auth.layout.master')
+@extends('frontend.layouts.master')
 
 @section('title', 'Log In')
 
 @section('content')
-<div class="card">
-    <div class="card-body">
 
-        <div class="text-center mt-4">
-            <div class="mb-3">
-                <a href="index.html" class="auth-logo">
-                    <img src="{{ asset('admin/assets/images/logo-dark.png') }}" height="30" class="logo-dark mx-auto" alt="">
-                    <img src="{{ asset('admin/assets/images/logo-light.png') }}" height="30" class="logo-light mx-auto" alt="">
-                </a>
+<div class="page-header breadcrumb-wrap">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+            <span></span> Log In
+        </div>
+    </div>
+</div>
+
+<div class="page-content pt-150 pb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                <div class="row">
+                    <div class="col-lg-6 pr-30 d-none d-lg-block">
+                        <img class="border-radius-15" src="{{ asset('frontend/assets/imgs/page/login-1.png') }}" alt="" />
+                    </div>
+                    <div class="col-lg-6 col-md-8">
+                        <div class="login_wrap widget-taber-content background-white">
+                            <div class="padding_eight_all bg-white">
+                                <div class="heading_s1">
+                                    <h1 class="mb-5">Login</h1>
+                                    <p class="mb-30">Don't have an account? <a href="{{ route('register') }}">Create here</a></p>
+                                </div>
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <input type="text" required="" name="email" placeholder="Email Address *" class="@error('email') is-invalid @enderror" />
+                                        @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <input required="" type="password" name="password" placeholder="Your password *" class="@error('password') is-invalid @enderror" />
+                                        @error('password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="login_footer form-group mb-50">
+                                        <div class="chek-form">
+                                            <div class="custome-checkbox">
+                                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
+                                                <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                                            </div>
+                                        </div>
+                                        <a class="text-muted" href="{{ route('password.request') }}">Forgot password?</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-heading btn-block hover-up" name="login">Log in</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <h4 class="text-muted text-center font-size-18"><b>Sign In</b></h4>
-
-        <div class="p-3">
-            <form class="form-horizontal mt-3" method="POST" action="{{ route('login') }}">
-                @csrf
-
-                <div class="form-group mb-3 row">
-                    <div class="col-12">
-                        <input class="form-control @error('email') is-invalid @enderror" name="email" type="email" placeholder="Email" value="{{ old('email') }}" required>
-                        @error('email')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group mb-3 row">
-                    <div class="col-12">
-                        <input class="form-control @error('password') is-invalid @enderror" name="password" type="password" placeholder="Password" required>
-                        @error('password')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group mb-3 row">
-                    <div class="col-12">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                            <label class="form-label ms-1" for="customCheck1">Remember me</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group mb-3 text-center row mt-3 pt-1">
-                    <div class="col-12">
-                        <button class="btn btn-info w-100 waves-effect waves-light" type="submit">Log In</button>
-                    </div>
-                </div>
-
-                <div class="form-group mb-0 row mt-2">
-                    @if (Route::has('password.request'))
-                    <div class="col-sm-7 mt-3">
-                        <a href="{{ route('password.request') }}" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password?</a>
-                    </div>
-                    @endif
-                    <div class="col-sm-5 mt-3">
-                        <a href="{{ route('register') }}" class="text-muted"><i class="mdi mdi-account-circle"></i> Create an account</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- end -->
     </div>
-    <!-- end cardbody -->
 </div>
+
 @endsection

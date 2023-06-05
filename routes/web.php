@@ -17,8 +17,8 @@ use App\Http\Controllers\Vendor\VendorController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('frontend.pages.home.index');
+})->name('frontend.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,7 +36,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('profile', [AdminController::class, 'profile'])->name('admin.profile'); 
         Route::post('profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update'); 
         Route::post('change-password', [AdminController::class, 'changePassword'])->name('admin.change-password'); 
-
+        
         // Dashboard Route
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         
@@ -46,7 +46,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:vendor'])->group(function () {
-    Route::get('/vendor/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::prefix('vendor')->group(function() {
+        // Profile Route
+        Route::get('profile', [VendorController::class, 'profile'])->name('vendor.profile'); 
+        Route::post('profile', [VendorController::class, 'updateProfile'])->name('vendor.profile.update'); 
+        Route::post('change-password', [VendorController::class, 'changePassword'])->name('vendor.change-password'); 
+        
+        Route::get('dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
+        
+        // Auth Route
+        Route::get('logout', [VendorController::class, 'logout'])->name('vendor.logout');
+    });
+    
 });
 
 require __DIR__.'/auth.php';
